@@ -6,12 +6,13 @@
     - name: Shutdown VM
       community.general.proxmox_kvm:
         node: "{{ proxmox_node }}"
-        api_user: "{{ proxmox_user}}"
-        api_password: "{{ proxmox_pass }}"
-        api_host: "{{ proxmox_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
         name: "{{ vm_name }}"
         state: stopped
-        
+
     - name: wait 20 seconds
       ansible.builtin.pause:
         seconds: 20
@@ -19,8 +20,9 @@
     - name: Remove VM
       community.general.proxmox_kvm:
         node: "{{ proxmox_node }}"
-        api_user: "{{ proxmox_user }}"
-        api_password: "{{ proxmox_pass }}"
-        api_host: "{{ proxmox_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
         name: "{{ vm_name }}"
         state: absent
