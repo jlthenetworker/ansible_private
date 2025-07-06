@@ -1,0 +1,28 @@
+---
+- name: Create VM from Proxmox Template
+  hosts: all
+  tasks:
+
+    - name: Clone proxmox template
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user}}"
+        api_password: "{{ proxmox_pass }}"
+        api_host: "{{ proxmox_host }}"
+        storage: "{{ storage }}"
+        full: true
+        clone: "{{ vm_clone }}"
+        name: "{{ vm_name }}"
+
+    - name: wait 10 seconds
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Start VM
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ proxmox_user }}"
+        api_password: "{{ proxmox_pass }}"
+        api_host: "{{ proxmox_host }}"
+        name: "{{ vm_name }}"
+        state: started
