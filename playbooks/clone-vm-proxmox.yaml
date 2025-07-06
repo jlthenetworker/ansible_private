@@ -73,32 +73,3 @@
         api_host: "{{ api_host }}"
         name: "{{ vm_name }}"
         state: started
-    
-    - name: wait 30 seconds
-      ansible.builtin.pause:
-        seconds: 30
-
-- name: Install qemu-guest-agent package
-  hosts: all
-  become: true
-  become_method: ansible.builtin.sudo
-
-  tasks:
-    - name: Install qemu-guest-agent
-      ansible.builtin.apt:
-        name: qemu-guest-agent
-        state: present
-
-    - name: wait 10 seconds
-      ansible.builtin.pause:
-        seconds: 10
-
-    - name: Restart VM
-      community.general.proxmox_kvm:
-        node: "{{ proxmox_node }}"
-        api_user: "{{ api_user }}"
-        api_token_id: "{{ api_token_id }}"
-        api_token_secret: "{{ api_token_secret }}"
-        api_host: "{{ api_host }}"
-        name: "{{ vm_name }}"
-        state: restarted               
