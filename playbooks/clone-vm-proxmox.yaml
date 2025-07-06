@@ -78,7 +78,6 @@
       ansible.builtin.pause:
         seconds: 30
 
----
 - name: Install qemu-guest-agent package
   hosts: all
   become: true
