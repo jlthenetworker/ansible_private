@@ -11,7 +11,7 @@
         api_host: "{{ proxmox_host }}"
         storage: "{{ storage }}"
         full: true
-        clone: "{{ vm_clone}}"
+        clone: "{{ vm_clone }}"
         name: "{{ vm_name }}"
 
     - name: wait 10 seconds
