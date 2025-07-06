@@ -1,0 +1,14 @@
+---
+- name: Shutdown VM
+  hosts: all
+  tasks:
+
+    - name: Shutdown VM
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
+        name: "{{ vm_name }}"
+        state: stopped
