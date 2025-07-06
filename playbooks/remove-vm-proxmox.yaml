@@ -1,28 +1,26 @@
 ---
-- name: Create VM from Proxmox Template
+- name: Shutdown VM and Remove it from Proxmox
   hosts: all
   tasks:
 
-    - name: Clone proxmox template
+    - name: Shutdown VM
       community.general.proxmox_kvm:
         node: "{{ proxmox_node }}"
         api_user: "{{ proxmox_user}}"
         api_password: "{{ proxmox_pass }}"
         api_host: "{{ proxmox_host }}"
-        storage: "{{ storage }}"
-        full: true
-        clone: "{{ vm_clone }}"
         name: "{{ vm_name }}"
-
-    - name: wait 10 seconds
+        state: stopped
+        
+    - name: wait 20 seconds
       ansible.builtin.pause:
-        seconds: 10
+        seconds: 20
 
-    - name: Start VM
+    - name: Remove VM
       community.general.proxmox_kvm:
         node: "{{ proxmox_node }}"
         api_user: "{{ proxmox_user }}"
         api_password: "{{ proxmox_pass }}"
         api_host: "{{ proxmox_host }}"
         name: "{{ vm_name }}"
-        state: started
+        state: absent
