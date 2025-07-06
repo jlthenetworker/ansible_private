@@ -1,6 +1,9 @@
 ---
 - name: Get all VM information from Proxmox
   hosts: all
+  vars:
+     output_file: "./proxmox_vm_list.json"
+     
   tasks:
 
     - name: Get information about all VMs
@@ -10,3 +13,8 @@
         api_token_id: "{{ api_token_id }}"
         api_token_secret: "{{ api_token_secret }}"
         api_host: "{{ api_host }}"
+
+    - name: Write VM list to JSON file
+      copy:
+        content: "{{ vm_info.vms | to_nice_json }}"
+        dest: "{{ output_file }}"
