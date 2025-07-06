@@ -6,7 +6,7 @@
     - name: Clone proxmox template
       community.general.proxmox_kvm:
         node: pve
-        api_user: "{{ proxmox_user}}"
+        api_user: "{{ proxmox_user }}"
         api_password: "{{ proxmox_pass }}"
         api_host: "{{ proxmox_host }}"
         storage: "{{ storage }}"
