@@ -9,7 +9,7 @@
         api_user: "{{ api_user }}"
         api_token_id: "{{ api_token_id }}"
         api_token_secret: "{{ api_token_secret }}"
-        api_host: "{{ proxmox_host }}"
+        api_host: "{{ api_host }}"
         storage: "{{ storage }}"
         full: true
         clone: "{{ vm_clone }}"
@@ -22,8 +22,9 @@
     - name: Start VM
       community.general.proxmox_kvm:
         node: pve
-        api_user: "{{ proxmox_user }}"
-        api_password: "{{ proxmox_pass }}"
-        api_host: "{{ proxmox_host }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
         name: "{{ vm_name }}"
         state: started
