@@ -1,0 +1,45 @@
+---
+- name: Update VM configuration in Proxmox
+  hosts: all
+  tasks:
+
+    - name: Shutdown VM
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
+        name: "{{ vm_name }}"
+        state: stopped
+
+    - name: wait 20 seconds
+      ansible.builtin.pause:
+        seconds: 20
+
+    - name: Chang VM configuration
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
+        name: "{{ vm_name }}"
+        memory: "{{ vm_memory }}"
+        cores: "{{ vm_cores }}"
+        sockets: "{{ vm_sockets }}"
+        update: true
+    
+    - name: wait 10 seconds
+      ansible.builtin.pause:
+        seconds: 10
+
+    - name: Start VM
+      community.general.proxmox_kvm:
+        node: "{{ proxmox_node }}"
+        api_user: "{{ api_user }}"
+        api_token_id: "{{ api_token_id }}"
+        api_token_secret: "{{ api_token_secret }}"
+        api_host: "{{ api_host }}"
+        name: "{{ vm_name }}"
+        state: started 
